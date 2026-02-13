@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Thai - Vocabulary & Phrases</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --thai-gold: #C9A961;
+            --thai-red: #C83E4D;
+            --thai-blue: #2C5F8D;
+            --dark: #1a1a1a;
+            --darker: #0f0f0f;
+            --light-bg: #f8f7f4;
+            --border: #e0ddd6;
+            --text-primary: #2a2a2a;
+            --text-secondary: #6a6a6a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--light-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            border-bottom: 3px solid var(--thai-gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .thai-script {
+            font-family: 'Noto Sans Thai', sans-serif;
+            color: var(--thai-gold);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.1);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--thai-gold), var(--thai-red));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .nav-tab:hover {
+            border-color: var(--thai-gold);
+            background: rgba(201, 169, 97, 0.05);
+        }
+
+        .nav-tab.active {
+            background: var(--thai-gold);
+            color: white;
+            border-color: var(--thai-gold);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+            min-height: 70vh;
+            overflow: visible;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            overflow: visible;
+        }
+
+        .section.active {
+            display: block;
+            overflow: visible;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Cards */
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .lesson-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: var(--thai-gold);
+        }
+
+        .lesson-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--thai-blue);
+        }
+
+        .lesson-count {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-preview {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 1.8rem;
+            color: var(--thai-gold);
+            margin: 1rem 0;
+        }
+
+        /* Flashcard */
+        .flashcard-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .flashcard {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 4rem 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+
+        .flashcard:hover {
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+        }
+
+        .flashcard.flipped .card-front {
+            display: none;
+        }
+
+        .flashcard.flipped .card-back {
+            display: block;
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+        }
+
+        .card-back {
+            display: none;
+        }
+
+        .thai-word {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 4rem;
+            font-weight: 500;
+            color: var(--thai-gold);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .romanization {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .english-word {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .context {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-top: 1.5rem;
+            font-style: italic;
+        }
+
+        .example-sentence {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .example-thai {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 1.6rem;
+            color: var(--thai-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .example-english {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: 2px solid var(--thai-gold);
+            background: white;
+            color: var(--thai-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--thai-gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
+        }
+
+        .btn-primary {
+            background: var(--thai-gold);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--thai-red);
+            border-color: var(--thai-red);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--thai-gold);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Hint */
+        .hint {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        /* Audio Controls */
+        .audio-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .pronounce-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--thai-gold);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+        }
+
+        .pronounce-btn:hover {
+            background: var(--thai-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+        }
+
+        .pronounce-btn:active {
+            transform: translateY(0);
+        }
+
+        .pronounce-btn.playing {
+            background: var(--thai-blue);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .speaker-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .speed-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .speed-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .speed-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .speed-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .speed-btn:hover {
+            border-color: var(--thai-gold);
+            background: rgba(201, 169, 97, 0.05);
+        }
+
+        .speed-btn.active {
+            background: var(--thai-gold);
+            color: white;
+            border-color: var(--thai-gold);
+        }
+
+        .auto-play-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--thai-gold);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .lesson-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .thai-word {
+                font-size: 3rem;
+            }
+
+            .english-word {
+                font-size: 2rem;
+            }
+
+            .flashcard {
+                padding: 2rem 1.5rem;
+                min-height: 350px;
+            }
+        }
+
+        /* Phrase controls wrapper */
+        .phrase-controls-wrapper {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: var(--dark);
+            border-bottom: 2px solid var(--thai-gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Phrase list view */
+        .phrase-controls {
+            background: var(--dark);
+            padding: 1.5rem 0;
+        }
+
+        .phrase-speed-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .phrase-speed-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .phrase-speed-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .phrase-speed-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .phrase-speed-btn:hover {
+            border-color: var(--thai-gold);
+            background: rgba(201, 169, 97, 0.05);
+        }
+
+        .phrase-speed-btn.active {
+            background: var(--thai-gold);
+            color: white;
+            border-color: var(--thai-gold);
+        }
+
+        .phrase-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .phrase-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .phrase-item:hover {
+            border-color: var(--thai-gold);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .phrase-content {
+            flex: 1;
+        }
+
+        .phrase-speaker-btn {
+            padding: 0.75rem;
+            background: var(--thai-gold);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .phrase-speaker-btn:hover {
+            background: var(--thai-red);
+            transform: scale(1.1);
+        }
+
+        .phrase-speaker-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+        }
+
+        /* Games Section */
+        .games-menu {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .games-title {
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--thai-blue);
+            margin-bottom: 3rem;
+        }
+
+        .game-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--thai-gold);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h3 {
+            font-size: 1.8rem;
+            color: var(--thai-blue);
+            margin-bottom: 1rem;
+        }
+
+        .game-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .game-start-btn {
+            padding: 1rem 2.5rem;
+            background: var(--thai-gold);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-start-btn:hover {
+            background: var(--thai-red);
+            transform: scale(1.05);
+        }
+
+        /* Game Container */
+        .game-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            border-color: var(--thai-gold);
+            background: rgba(201, 169, 97, 0.1);
+        }
+
+        .game-header h2 {
+            font-size: 2rem;
+            color: var(--thai-blue);
+        }
+
+        .game-stats-bar {
+            display: flex;
+            gap: 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .timer {
+            color: var(--thai-red);
+        }
+
+        .score {
+            color: var(--thai-gold);
+        }
+
+        /* Matching Game */
+        .game-setup {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .game-setup h3 {
+            font-size: 1.8rem;
+            color: var(--thai-blue);
+            margin-bottom: 2rem;
+        }
+
+        .category-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .category-btn {
+            padding: 1rem 1.5rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: var(--thai-gold);
+            color: white;
+            border-color: var(--thai-gold);
+            transform: scale(1.05);
+        }
+
+        .matching-board {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .match-card {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .match-card:hover:not(.matched):not(.selected) {
+            transform: translateY(-4px);
+            border-color: var(--thai-gold);
+        }
+
+        .match-card.selected {
+            background: var(--thai-gold);
+            color: white;
+            border-color: var(--thai-gold);
+        }
+
+        .match-card.matched {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .match-card.wrong {
+            background: var(--thai-red);
+            color: white;
+            border-color: var(--thai-red);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .match-card-thai {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 1.6rem;
+        }
+
+        .match-card-english {
+            font-size: 1.2rem;
+        }
+
+        /* Jeopardy Game */
+        .jeopardy-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .jeopardy-category {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: var(--thai-blue);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .jeopardy-cell {
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--light-bg);
+            border-top: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--thai-gold);
+        }
+
+        .jeopardy-cell:hover:not(.answered) {
+            background: var(--thai-gold);
+            color: white;
+        }
+
+        .jeopardy-cell.answered {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .jeopardy-question {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .question-content {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .question-value {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--thai-gold);
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--thai-blue);
+            margin-bottom: 3rem;
+        }
+
+        .question-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            padding: 1.5rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            background: rgba(201, 169, 97, 0.1);
+            border-color: var(--thai-gold);
+        }
+
+        .option-btn.correct {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .option-btn.incorrect {
+            background: var(--thai-red);
+            color: white;
+            border-color: var(--thai-red);
+        }
+
+        /* Game Result */
+        .game-result {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .result-content {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .result-content h2 {
+            font-size: 2.5rem;
+            color: var(--thai-gold);
+            margin-bottom: 2rem;
+        }
+
+        .result-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+        }
+
+        .result-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--thai-blue);
+        }
+
+        /* Responsive Games */
+        @media (max-width: 768px) {
+            .matching-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .jeopardy-board {
+                grid-template-columns: 1fr;
+            }
+
+            .question-text {
+                font-size: 2rem;
+            }
+
+            .game-stats-bar {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        .phrase-thai {
+            font-family: 'Noto Sans Thai', sans-serif;
+            font-size: 1.8rem;
+            color: var(--thai-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .phrase-romanization {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 0.3rem;
+        }
+
+        .phrase-english {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1>Learn Thai</h1>
+                    <div class="thai-script">เรียนภาษาไทย</div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number" id="wordsLearned">0</div>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="phrasesLearned">0</div>
+                        <div class="stat-label">Phrases</div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-section="lessons">Lessons</button>
+                <button class="nav-tab" data-section="vocabulary">Vocabulary</button>
+                <button class="nav-tab" data-section="phrases">Everyday Phrases</button>
+                <button class="nav-tab" data-section="games">Games</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Phrase Speed Controls (sticky, only visible on phrases section) -->
+    <div class="phrase-controls-wrapper" id="phraseControlsWrapper" style="display: none;">
+        <div class="phrase-controls">
+            <div class="phrase-speed-control">
+                <div class="phrase-speed-label">Phrase Speed</div>
+                <div class="phrase-speed-buttons">
+                    <button class="phrase-speed-btn" data-speed="0.2">Very Slow</button>
+                    <button class="phrase-speed-btn active" data-speed="0.5">Slow</button>
+                    <button class="phrase-speed-btn" data-speed="1.0">Normal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <!-- Lessons Section -->
+            <section id="lessons" class="section active">
+                <div class="lesson-grid">
+                    <div class="lesson-card" data-lesson="greetings">
+                        <div class="lesson-title">Greetings & Basics</div>
+                        <div class="lesson-count">12 words</div>
+                        <div class="lesson-preview">สวัสดี</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="numbers">
+                        <div class="lesson-title">Numbers</div>
+                        <div class="lesson-count">15 words</div>
+                        <div class="lesson-preview">หนึ่ง สอง สาม</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="food">
+                        <div class="lesson-title">Food & Dining</div>
+                        <div class="lesson-count">20 words</div>
+                        <div class="lesson-preview">อาหาร อร่อย</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="travel">
+                        <div class="lesson-title">Travel & Directions</div>
+                        <div class="lesson-count">18 words</div>
+                        <div class="lesson-preview">ไปไหน ที่ไหน</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="shopping">
+                        <div class="lesson-title">Shopping</div>
+                        <div class="lesson-count">16 words</div>
+                        <div class="lesson-preview">เท่าไร ซื้อ</div>
+                    </div>
+                    <div class="lesson-card" data-lesson="time">
+                        <div class="lesson-title">Time & Dates</div>
+                        <div class="lesson-count">14 words</div>
+                        <div class="lesson-preview">วันนี้ พรุ่งนี้</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vocabulary Practice Section -->
+            <section id="vocabulary" class="section">
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="card-front">
+                            <div class="thai-word" id="thaiWord"></div>
+                            <div class="romanization" id="romanization"></div>
+                            <div class="hint">Click to reveal meaning</div>
+                            <div class="audio-controls">
+                                <button class="pronounce-btn" id="pronounceBtn">
+                                    <svg class="speaker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                                    </svg>
+                                    Pronounce
+                                </button>
+                                <div class="speed-control">
+                                    <div class="speed-label">Speed</div>
+                                    <div class="speed-buttons">
+                                        <button class="speed-btn" data-speed="0.2">Very Slow</button>
+                                        <button class="speed-btn active" data-speed="0.5">Slow</button>
+                                        <button class="speed-btn" data-speed="1.0">Normal</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="auto-play-toggle">
+                                <span>Auto-play on flip:</span>
+                                <div class="toggle-switch" id="autoPlayToggle">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="english-word" id="englishWord"></div>
+                            <div class="context" id="context"></div>
+                            <div class="example-sentence">
+                                <div class="example-thai" id="exampleThai"></div>
+                                <div class="example-english" id="exampleEnglish"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn" id="prevBtn">Previous</button>
+                        <button class="btn btn-primary" id="nextBtn">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phrases Section -->
+            <section id="phrases" class="section">
+                <div class="phrase-list" id="phraseList">
+                    <!-- Phrases will be populated here -->
+                </div>
+            </section>
+
+            <!-- Games Section -->
+            <section id="games" class="section">
+                <div class="games-menu">
+                    <h2 class="games-title">Challenge Yourself</h2>
+                    <div class="game-cards">
+                        <div class="game-card" id="matchingGameCard">
+                            <div class="game-icon">⚡</div>
+                            <h3>Timed Matching</h3>
+                            <p>Match Thai words with their English translations as fast as you can!</p>
+                            <button class="game-start-btn" onclick="showMatchingGame()">Play</button>
+                        </div>
+                        <div class="game-card" id="jeopardyGameCard">
+                            <div class="game-icon">🎯</div>
+                            <h3>Thai Jeopardy</h3>
+                            <p>Test your knowledge across different categories. Choose your difficulty!</p>
+                            <button class="game-start-btn" onclick="showJeopardyGame()">Play</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matching Game -->
+                <div class="game-container" id="matchingGame" style="display: none;">
+                    <div class="game-header">
+                        <button class="back-btn" onclick="backToGamesMenu()">← Back</button>
+                        <h2>Timed Matching Game</h2>
+                        <div class="game-stats-bar">
+                            <div class="timer" id="matchTimer">Time: 0s</div>
+                            <div class="score" id="matchScore">Score: 0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-setup" id="matchSetup">
+                        <h3>Choose Category</h3>
+                        <div class="category-buttons">
+                            <button class="category-btn" data-category="greetings">Greetings & Basics</button>
+                            <button class="category-btn" data-category="numbers">Numbers</button>
+                            <button class="category-btn" data-category="food">Food & Dining</button>
+                            <button class="category-btn" data-category="travel">Travel & Directions</button>
+                            <button class="category-btn" data-category="shopping">Shopping</button>
+                            <button class="category-btn" data-category="time">Time & Dates</button>
+                            <button class="category-btn" data-category="random">Random Mix</button>
+                        </div>
+                    </div>
+
+                    <div class="matching-board" id="matchingBoard" style="display: none;">
+                        <div class="matching-grid" id="matchingGrid"></div>
+                    </div>
+
+                    <div class="game-result" id="matchResult" style="display: none;">
+                        <div class="result-content">
+                            <h2>🎉 Complete!</h2>
+                            <div class="result-stats">
+                                <div class="result-stat">
+                                    <span class="result-label">Time</span>
+                                    <span class="result-value" id="finalTime"></span>
+                                </div>
+                                <div class="result-stat">
+                                    <span class="result-label">Score</span>
+                                    <span class="result-value" id="finalScore"></span>
+                                </div>
+                            </div>
+                            <button class="game-start-btn" onclick="resetMatchingGame()">Play Again</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jeopardy Game -->
+                <div class="game-container" id="jeopardyGame" style="display: none;">
+                    <div class="game-header">
+                        <button class="back-btn" onclick="backToGamesMenu()">← Back</button>
+                        <h2>Thai Jeopardy</h2>
+                        <div class="game-stats-bar">
+                            <div class="score" id="jeopardyScore">Score: 0</div>
+                        </div>
+                    </div>
+
+                    <div class="jeopardy-board" id="jeopardyBoard"></div>
+
+                    <div class="jeopardy-question" id="jeopardyQuestion" style="display: none;">
+                        <div class="question-content">
+                            <div class="question-value" id="questionValue"></div>
+                            <div class="question-text" id="questionText"></div>
+                            <div class="question-options" id="questionOptions"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-result" id="jeopardyResult" style="display: none;">
+                        <div class="result-content">
+                            <h2 id="jeopardyResultTitle">🎉 Game Over!</h2>
+                            <div class="result-stats">
+                                <div class="result-stat">
+                                    <span class="result-label">Final Score</span>
+                                    <span class="result-value" id="jeopardyFinalScore"></span>
+                                </div>
+                            </div>
+                            <button class="game-start-btn" onclick="resetJeopardyGame()">Play Again</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Data
+        const vocabulary = {
+            greetings: [
+                {
+                    thai: 'สวัสดี',
+                    romanization: 'sà-wàt-dee',
+                    english: 'Hello / Goodbye',
+                    context: 'Used for both greeting and farewell',
+                    example: 'สวัสดีครับ',
+                    exampleEng: 'Hello (said by male)'
+                },
+                {
+                    thai: 'ขอบคุณ',
+                    romanization: 'kòp-kun',
+                    english: 'Thank you',
+                    context: 'Add ครับ (male) or ค่ะ (female) for politeness',
+                    example: 'ขอบคุณมากครับ',
+                    exampleEng: 'Thank you very much'
+                },
+                {
+                    thai: 'ครับ / ค่ะ',
+                    romanization: 'kráp / kâ',
+                    english: 'Polite particle',
+                    context: 'Men say ครับ, women say ค่ะ',
+                    example: 'เข้าใจครับ',
+                    exampleEng: 'I understand (male speaking)'
+                },
+                {
+                    thai: 'ไม่เป็นไร',
+                    romanization: 'mâi bpen rai',
+                    english: 'No problem / You\'re welcome',
+                    context: 'Very common phrase in Thai culture',
+                    example: 'ไม่เป็นไรค่ะ ยินดีที่ได้ช่วย',
+                    exampleEng: 'No problem, happy to help'
+                },
+                {
+                    thai: 'ขอโทษ',
+                    romanization: 'kŏr-tôht',
+                    english: 'Sorry / Excuse me',
+                    context: 'Used for apologizing or getting attention',
+                    example: 'ขอโทษครับ ผมทำแก้วแตก',
+                    exampleEng: 'Sorry, I broke the glass'
+                },
+                {
+                    thai: 'ยินดีที่ได้รู้จัก',
+                    romanization: 'yin-dee têe dâi róo-jàk',
+                    english: 'Nice to meet you',
+                    context: 'Formal greeting when meeting someone',
+                    example: 'ยินดีที่ได้รู้จักครับ คุณชื่ออะไร',
+                    exampleEng: 'Nice to meet you. What\'s your name?'
+                },
+                {
+                    thai: 'ลาก่อน',
+                    romanization: 'laa gòn',
+                    english: 'Goodbye',
+                    context: 'Alternative to สวัสดี for farewell',
+                    example: 'ลาก่อนนะครับ แล้วพบกันใหม่',
+                    exampleEng: 'Goodbye, see you again'
+                },
+                {
+                    thai: 'สบายดีไหม',
+                    romanization: 'sà-baai dee mái',
+                    english: 'How are you?',
+                    context: 'Literally "Are you well?"',
+                    example: 'สบายดีไหมครับ วันนี้',
+                    exampleEng: 'How are you today?'
+                },
+                {
+                    thai: 'สบายดี',
+                    romanization: 'sà-baai dee',
+                    english: 'I\'m fine',
+                    context: 'Response to "How are you?"',
+                    example: 'สบายดีค่ะ ขอบคุณ',
+                    exampleEng: 'I\'m fine, thank you'
+                },
+                {
+                    thai: 'ใช่',
+                    romanization: 'châi',
+                    english: 'Yes',
+                    context: 'Affirmative response',
+                    example: 'ใช่ครับ ถูกต้อง',
+                    exampleEng: 'Yes, that\'s correct'
+                },
+                {
+                    thai: 'ไม่ใช่',
+                    romanization: 'mâi châi',
+                    english: 'No',
+                    context: 'Negative response',
+                    example: 'ไม่ใช่ค่ะ ผิดแล้ว',
+                    exampleEng: 'No, that\'s wrong'
+                },
+                {
+                    thai: 'เข้าใจ',
+                    romanization: 'kâo-jai',
+                    english: 'Understand',
+                    context: 'To comprehend or get something',
+                    example: 'เข้าใจแล้วครับ',
+                    exampleEng: 'I understand now'
+                }
+            ],
+            numbers: [
+                { thai: 'หนึ่ง', romanization: 'nèung', english: 'One', context: 'Number 1', example: 'หนึ่งคน', exampleEng: 'One person' },
+                { thai: 'สอง', romanization: 'sŏng', english: 'Two', context: 'Number 2', example: 'สองวัน', exampleEng: 'Two days' },
+                { thai: 'สาม', romanization: 'săam', english: 'Three', context: 'Number 3', example: 'สามชั่วโมง', exampleEng: 'Three hours' },
+                { thai: 'สี่', romanization: 'sèe', english: 'Four', context: 'Number 4', example: 'สี่คน', exampleEng: 'Four people' },
+                { thai: 'ห้า', romanization: 'hâa', english: 'Five', context: 'Number 5', example: 'ห้าบาท', exampleEng: 'Five baht' },
+                { thai: 'หก', romanization: 'hòk', english: 'Six', context: 'Number 6', example: 'หกเดือน', exampleEng: 'Six months' },
+                { thai: 'เจ็ด', romanization: 'jèt', english: 'Seven', context: 'Number 7', example: 'เจ็ดวัน', exampleEng: 'Seven days' },
+                { thai: 'แปด', romanization: 'bpàet', english: 'Eight', context: 'Number 8', example: 'แปดโมง', exampleEng: 'Eight o\'clock' },
+                { thai: 'เก้า', romanization: 'gâo', english: 'Nine', context: 'Number 9', example: 'เก้าสิบ', exampleEng: 'Ninety' },
+                { thai: 'สิบ', romanization: 'sìp', english: 'Ten', context: 'Number 10', example: 'สิบบาท', exampleEng: 'Ten baht' },
+                { thai: 'ยี่สิบ', romanization: 'yêe-sìp', english: 'Twenty', context: 'Number 20', example: 'ยี่สิบคน', exampleEng: 'Twenty people' },
+                { thai: 'สามสิบ', romanization: 'săam-sìp', english: 'Thirty', context: 'Number 30', example: 'สามสิบปี', exampleEng: 'Thirty years' },
+                { thai: 'ร้อย', romanization: 'rói', english: 'Hundred', context: 'Number 100', example: 'หนึ่งร้อย', exampleEng: 'One hundred' },
+                { thai: 'พัน', romanization: 'pan', english: 'Thousand', context: 'Number 1000', example: 'หนึ่งพัน', exampleEng: 'One thousand' },
+                { thai: 'ล้าน', romanization: 'láan', english: 'Million', context: 'Number 1,000,000', example: 'สองล้าน', exampleEng: 'Two million' }
+            ],
+            food: [
+                { thai: 'อาหาร', romanization: 'aa-hăan', english: 'Food', context: 'General term for food', example: 'อาหารไทย', exampleEng: 'Thai food' },
+                { thai: 'น้ำ', romanization: 'náam', english: 'Water', context: 'Also means liquid', example: 'ขอน้ำหนึ่งแก้ว', exampleEng: 'One glass of water please' },
+                { thai: 'อร่อย', romanization: 'à-ròi', english: 'Delicious', context: 'Tasty, good flavor', example: 'อร่อยมากครับ', exampleEng: 'Very delicious' },
+                { thai: 'ข้าว', romanization: 'kâao', english: 'Rice / Food', context: 'Both rice and meals in general', example: 'กินข้าวแล้วหรือยัง', exampleEng: 'Have you eaten yet?' },
+                { thai: 'เผ็ด', romanization: 'pèt', english: 'Spicy', context: 'Hot/spicy flavor', example: 'เผ็ดไหมครับ', exampleEng: 'Is it spicy?' },
+                { thai: 'หวาน', romanization: 'wăan', english: 'Sweet', context: 'Sweet flavor', example: 'หวานเกินไป', exampleEng: 'Too sweet' },
+                { thai: 'เค็ม', romanization: 'kem', english: 'Salty', context: 'Salty flavor', example: 'เค็มนิดหน่อย', exampleEng: 'A little salty' },
+                { thai: 'เปรี้ยว', romanization: 'bprîao', english: 'Sour', context: 'Sour/tart flavor', example: 'เปรี้ยวสดชื่น', exampleEng: 'Sour and refreshing' },
+                { thai: 'กิน', romanization: 'gin', english: 'Eat / Drink', context: 'To eat or drink', example: 'กินข้าวกัน', exampleEng: 'Let\'s eat' },
+                { thai: 'ดื่ม', romanization: 'dèum', english: 'Drink', context: 'To drink (formal)', example: 'ดื่มน้ำเยอะๆ', exampleEng: 'Drink lots of water' },
+                { thai: 'ร้านอาหาร', romanization: 'ráan aa-hăan', english: 'Restaurant', context: 'Food shop/restaurant', example: 'ร้านอาหารไทย', exampleEng: 'Thai restaurant' },
+                { thai: 'เมนู', romanization: 'may-noo', english: 'Menu', context: 'Food menu', example: 'ขอดูเมนูครับ', exampleEng: 'Menu please' },
+                { thai: 'บิล', romanization: 'bin', english: 'Bill / Check', context: 'Restaurant bill', example: 'เช็คบิลด้วยครับ', exampleEng: 'Check please' },
+                { thai: 'คิดเงิน', romanization: 'kít ngern', english: 'Calculate bill', context: 'To charge/calculate', example: 'คิดเงินด้วยครับ', exampleEng: 'The bill please' },
+                { thai: 'ผัดไทย', romanization: 'pàt tai', english: 'Pad Thai', context: 'Famous Thai noodle dish', example: 'ขอผัดไทยหนึ่งจาน', exampleEng: 'One Pad Thai please' },
+                { thai: 'ต้มยำกุ้ง', romanization: 'dtôm yam gûng', english: 'Tom Yum Goong', context: 'Spicy shrimp soup', example: 'ต้มยำกุ้งเผ็ดมาก', exampleEng: 'Tom Yum Goong is very spicy' },
+                { thai: 'น้ำชา', romanization: 'náam chaa', english: 'Tea', context: 'Tea beverage', example: 'ชาเย็นหนึ่งแก้ว', exampleEng: 'One iced tea' },
+                { thai: 'กาแฟ', romanization: 'gaa-fae', english: 'Coffee', context: 'Coffee beverage', example: 'กาแฟร้อนครับ', exampleEng: 'Hot coffee please' },
+                { thai: 'มังสวิรัติ', romanization: 'mang-sà-wí-rát', english: 'Vegetarian', context: 'No meat diet', example: 'ผมกินมังสวิรัติ', exampleEng: 'I\'m vegetarian' },
+                { thai: 'แพ้', romanization: 'pâe', english: 'Allergic to', context: 'Food allergy', example: 'แพ้ถั่ว', exampleEng: 'Allergic to peanuts' }
+            ],
+            travel: [
+                { thai: 'ไป', romanization: 'bpai', english: 'Go', context: 'To go/move toward', example: 'ไปไหน', exampleEng: 'Where are you going?' },
+                { thai: 'มา', romanization: 'maa', english: 'Come', context: 'To come/move here', example: 'มาจากไหน', exampleEng: 'Where did you come from?' },
+                { thai: 'ที่ไหน', romanization: 'têe-năi', english: 'Where', context: 'Question word for location', example: 'ห้องน้ำอยู่ที่ไหน', exampleEng: 'Where is the bathroom?' },
+                { thai: 'แท็กซี่', romanization: 'táek-sêe', english: 'Taxi', context: 'Taxi cab', example: 'เรียกแท็กซี่หน่อย', exampleEng: 'Call a taxi please' },
+                { thai: 'รถไฟ', romanization: 'rót-fai', english: 'Train', context: 'Railway train', example: 'รถไฟฟ้า', exampleEng: 'Sky train/Metro' },
+                { thai: 'สนามบิน', romanization: 'sà-năam bin', english: 'Airport', context: 'Place for airplanes', example: 'ไปสนามบิน', exampleEng: 'Go to airport' },
+                { thai: 'โรงแรม', romanization: 'rohng-raem', english: 'Hotel', context: 'Accommodation', example: 'จองโรงแรม', exampleEng: 'Book a hotel' },
+                { thai: 'ห้องน้ำ', romanization: 'hông-náam', english: 'Bathroom', context: 'Toilet/restroom', example: 'ห้องน้ำอยู่ไหน', exampleEng: 'Where is the bathroom?' },
+                { thai: 'ซ้าย', romanization: 'sái', english: 'Left', context: 'Left direction', example: 'เลี้ยวซ้าย', exampleEng: 'Turn left' },
+                { thai: 'ขวา', romanization: 'kwăa', english: 'Right', context: 'Right direction', example: 'เลี้ยวขวา', exampleEng: 'Turn right' },
+                { thai: 'ตรง', romanization: 'dtrong', english: 'Straight', context: 'Straight ahead', example: 'ไปตรงๆ', exampleEng: 'Go straight' },
+                { thai: 'ไกล', romanization: 'glai', english: 'Far', context: 'Far distance', example: 'ไกลแค่ไหน', exampleEng: 'How far?' },
+                { thai: 'ใกล้', romanization: 'glâi', english: 'Near', context: 'Close/nearby', example: 'อยู่ใกล้ๆ', exampleEng: 'It\'s nearby' },
+                { thai: 'แผนที่', romanization: 'pàen-têe', english: 'Map', context: 'Geographic map', example: 'ดูแผนที่', exampleEng: 'Look at the map' },
+                { thai: 'ถนน', romanization: 'tà-nŏn', english: 'Street / Road', context: 'Road/street', example: 'ถนนสุขุมวิท', exampleEng: 'Sukhumvit Road' },
+                { thai: 'วัด', romanization: 'wát', english: 'Temple', context: 'Buddhist temple', example: 'วัดโพธิ์', exampleEng: 'Wat Pho temple' },
+                { thai: 'ตลาด', romanization: 'dtà-làat', english: 'Market', context: 'Marketplace', example: 'ตลาดนัด', exampleEng: 'Weekend market' },
+                { thai: 'ธนาคาร', romanization: 'tá-naa-kaan', english: 'Bank', context: 'Financial bank', example: 'ธนาคารอยู่ไหน', exampleEng: 'Where is the bank?' }
+            ],
+            shopping: [
+                { thai: 'ซื้อ', romanization: 'séu', english: 'Buy', context: 'To purchase', example: 'ซื้ออะไร', exampleEng: 'What are you buying?' },
+                { thai: 'ขาย', romanization: 'kăai', english: 'Sell', context: 'To sell', example: 'ขายไหม', exampleEng: 'Are you selling?' },
+                { thai: 'เท่าไร', romanization: 'tâo-rài', english: 'How much', context: 'Question for price', example: 'ราคาเท่าไร', exampleEng: 'How much is it?' },
+                { thai: 'แพง', romanization: 'paeng', english: 'Expensive', context: 'High price', example: 'แพงมาก', exampleEng: 'Very expensive' },
+                { thai: 'ถูก', romanization: 'tòok', english: 'Cheap', context: 'Low price', example: 'ถูกดี', exampleEng: 'Good price/cheap' },
+                { thai: 'ลดราคา', romanization: 'lót raa-kaa', english: 'Discount', context: 'Price reduction', example: 'ลดราคาได้ไหม', exampleEng: 'Can you give a discount?' },
+                { thai: 'เงิน', romanization: 'ngern', english: 'Money', context: 'Currency', example: 'มีเงินไหม', exampleEng: 'Do you have money?' },
+                { thai: 'บาท', romanization: 'bàat', english: 'Baht', context: 'Thai currency', example: 'ร้อยบาท', exampleEng: 'One hundred baht' },
+                { thai: 'ทอน', romanization: 'torn', english: 'Change', context: 'Money change', example: 'ทอนเงิน', exampleEng: 'Change (money back)' },
+                { thai: 'บัตรเครดิต', romanization: 'bàt-kreh-dìt', english: 'Credit card', context: 'Payment card', example: 'จ่ายบัตรเครดิตได้ไหม', exampleEng: 'Can I pay by credit card?' },
+                { thai: 'เงินสด', romanization: 'ngern-sòt', english: 'Cash', context: 'Physical money', example: 'จ่ายเงินสด', exampleEng: 'Pay with cash' },
+                { thai: 'ร้าน', romanization: 'ráan', english: 'Shop / Store', context: 'Retail store', example: 'ร้านขายของ', exampleEng: 'Shop/store' },
+                { thai: 'ซื้อกลับบ้าน', romanization: 'séu glàp bâan', english: 'Take away', context: 'To go/takeout', example: 'ซื้อกลับบ้านครับ', exampleEng: 'To go please' },
+                { thai: 'ถุง', romanization: 'tŭng', english: 'Bag', context: 'Shopping bag', example: 'ใส่ถุงด้วย', exampleEng: 'Put in a bag please' },
+                { thai: 'ใบเสร็จ', romanization: 'bai-sèt', english: 'Receipt', context: 'Purchase receipt', example: 'ขอใบเสร็จด้วย', exampleEng: 'Receipt please' },
+                { thai: 'ของขวัญ', romanization: 'kŏng-kwăn', english: 'Gift / Present', context: 'Gift item', example: 'ซื้อของขวัญ', exampleEng: 'Buy a gift' }
+            ],
+            time: [
+                { thai: 'วันนี้', romanization: 'wan-née', english: 'Today', context: 'Current day', example: 'วันนี้อากาศดี', exampleEng: 'The weather is good today' },
+                { thai: 'พรุ่งนี้', romanization: 'prûng-née', english: 'Tomorrow', context: 'Next day', example: 'พรุ่งนี้เจอกัน', exampleEng: 'See you tomorrow' },
+                { thai: 'เมื่อวาน', romanization: 'mêua-waan', english: 'Yesterday', context: 'Previous day', example: 'เมื่อวานฝนตก', exampleEng: 'It rained yesterday' },
+                { thai: 'ตอนนี้', romanization: 'dton-née', english: 'Now', context: 'Current time', example: 'ตอนนี้กี่โมง', exampleEng: 'What time is it now?' },
+                { thai: 'เช้า', romanization: 'cháo', english: 'Morning', context: 'Morning time', example: 'ตอนเช้า', exampleEng: 'In the morning' },
+                { thai: 'กลางวัน', romanization: 'glaang-wan', english: 'Noon / Midday', context: 'Middle of day', example: 'กลางวันกินข้าว', exampleEng: 'Eat lunch at noon' },
+                { thai: 'เย็น', romanization: 'yen', english: 'Evening', context: 'Evening time', example: 'ตอนเย็น', exampleEng: 'In the evening' },
+                { thai: 'กลางคืน', romanization: 'glaang-keun', english: 'Night', context: 'Nighttime', example: 'กลางคืนหนาว', exampleEng: 'Cold at night' },
+                { thai: 'สัปดาห์', romanization: 'sàp-daa', english: 'Week', context: 'Seven days', example: 'สัปดาห์หน้า', exampleEng: 'Next week' },
+                { thai: 'เดือน', romanization: 'deuan', english: 'Month', context: 'Calendar month', example: 'เดือนหน้า', exampleEng: 'Next month' },
+                { thai: 'ปี', romanization: 'bpee', english: 'Year', context: 'Calendar year', example: 'ปีนี้', exampleEng: 'This year' },
+                { thai: 'ชั่วโมง', romanization: 'chûa-mohng', english: 'Hour', context: 'Time unit', example: 'สองชั่วโมง', exampleEng: 'Two hours' },
+                { thai: 'นาที', romanization: 'naa-tee', english: 'Minute', context: 'Time unit', example: 'สิบนาที', exampleEng: 'Ten minutes' },
+                { thai: 'วินาที', romanization: 'wí-naa-tee', english: 'Second', context: 'Time unit', example: 'สามสิบวินาที', exampleEng: 'Thirty seconds' }
+            ]
+        };
+
+        const phrases = [
+            { thai: 'สวัสดีครับ/ค่ะ', romanization: 'sà-wàt-dee kráp/kâ', english: 'Hello (polite)' },
+            { thai: 'คุณชื่ออะไร', romanization: 'kun chêu à-rai', english: 'What is your name?' },
+            { thai: 'ผม/ดิฉันชื่อ...', romanization: 'pŏm/dì-chăn chêu...', english: 'My name is... (male/female)' },
+            { thai: 'ยินดีที่ได้รู้จัก', romanization: 'yin-dee têe dâi róo-jàk', english: 'Nice to meet you' },
+            { thai: 'คุณมาจากไหน', romanization: 'kun maa jàak năi', english: 'Where are you from?' },
+            { thai: 'ผม/ดิฉันมาจาก...', romanization: 'pŏm/dì-chăn maa jàak...', english: 'I\'m from... (male/female)' },
+            { thai: 'พูดภาษาอังกฤษได้ไหม', romanization: 'pôot paa-săa ang-grìt dâi măi', english: 'Can you speak English?' },
+            { thai: 'ไม่เข้าใจ', romanization: 'mâi kâo-jai', english: 'I don\'t understand' },
+            { thai: 'พูดช้าๆ หน่อยได้ไหม', romanization: 'pôot cháa-cháa nòi dâi măi', english: 'Can you speak slowly?' },
+            { thai: 'ช่วยได้ไหม', romanization: 'chûay dâi măi', english: 'Can you help me?' },
+            { thai: 'ห้องน้ำอยู่ที่ไหน', romanization: 'hông-náam yòo têe-năi', english: 'Where is the bathroom?' },
+            { thai: 'เท่าไรครับ/ค่ะ', romanization: 'tâo-rài kráp/kâ', english: 'How much is it?' },
+            { thai: 'แพงเกินไป', romanization: 'paeng gern bpai', english: 'Too expensive' },
+            { thai: 'ลดได้ไหม', romanization: 'lót dâi măi', english: 'Can you give a discount?' },
+            { thai: 'ขอน้ำหนึ่งแก้ว', romanization: 'kŏr náam nèung gâeo', english: 'One glass of water please' },
+            { thai: 'อร่อยมาก', romanization: 'à-ròi mâak', english: 'Very delicious' },
+            { thai: 'ไม่เผ็ด', romanization: 'mâi pèt', english: 'Not spicy' },
+            { thai: 'เช็คบิลครับ/ค่ะ', romanization: 'chék bin kráp/kâ', english: 'Check please' },
+            { thai: 'ไปสนามบินยังไง', romanization: 'bpai sà-năam bin yang-ngai', english: 'How do I get to the airport?' },
+            { thai: 'เรียกแท็กซี่ให้หน่อย', romanization: 'rîak táek-sêe hâi nòi', english: 'Please call a taxi for me' },
+            { thai: 'ฉันหลงทาง', romanization: 'chăn lŏng taang', english: 'I\'m lost' },
+            { thai: 'ไปตรงไหน', romanization: 'bpai dtrong năi', english: 'Which way to go?' },
+            { thai: 'ไกลไหม', romanization: 'glai măi', english: 'Is it far?' },
+            { thai: 'ใกล้มาก', romanization: 'glâi mâak', english: 'Very close' },
+            { thai: 'รอสักครู่', romanization: 'ror sàk-krôo', english: 'Wait a moment' },
+            { thai: 'ไปกันเถอะ', romanization: 'bpai gan tùh', english: 'Let\'s go' },
+            { thai: 'ช้าก่อน', romanization: 'cháa gòn', english: 'Wait/Hold on' },
+            { thai: 'ทำไม', romanization: 'tam-mai', english: 'Why?' },
+            { thai: 'เมื่อไหร่', romanization: 'mêua-rài', english: 'When?' },
+            { thai: 'กี่โมงแล้ว', romanization: 'gèe mohng láeo', english: 'What time is it?' },
+            { thai: 'สนุกมาก', romanization: 'sà-nùk mâak', english: 'Very fun' },
+            { thai: 'เหนื่อยมาก', romanization: 'nèuay mâak', english: 'Very tired' },
+            { thai: 'ร้อนจัง', romanization: 'rón jang', english: 'So hot' },
+            { thai: 'หนาวจัง', romanization: 'năao jang', english: 'So cold' },
+            { thai: 'ฝนตก', romanization: 'fŏn dtòk', english: 'It\'s raining' },
+            { thai: 'อากาศดี', romanization: 'aa-gàat dee', english: 'Nice weather' },
+            { thai: 'ขอโทษครับ/ค่ะ มีคนแล้ว', romanization: 'kŏr-tôht kráp/kâ, mee kon láeo', english: 'Sorry, it\'s taken (seat)' },
+            { thai: 'นั่งได้เลย', romanization: 'nâng dâi loie', english: 'You can sit' },
+            { thai: 'อิ่มแล้ว', romanization: 'ìm láeo', english: 'I\'m full' },
+            { thai: 'หิวข้าว', romanization: 'hĭw kâao', english: 'I\'m hungry' }
+        ];
+
+        // State
+        let currentLesson = 'greetings';
+        let currentCardIndex = 0;
+        let wordsLearnedCount = 0;
+        let phrasesLearnedCount = 0;
+        let isFlipped = false;
+        let speechRate = 0.5;
+        let phraseSpeed = 0.5;
+        let autoPlay = false;
+        let isSpeaking = false;
+
+        // Elements
+        const sections = document.querySelectorAll('.section');
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const flashcard = document.getElementById('flashcard');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressFill = document.getElementById('progressFill');
+        const wordsLearnedEl = document.getElementById('wordsLearned');
+        const phrasesLearnedEl = document.getElementById('phrasesLearned');
+        const phraseList = document.getElementById('phraseList');
+
+        // Initialize
+        function init() {
+            renderPhrases();
+            setupEventListeners();
+            updateCard();
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Navigation
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const section = tab.dataset.section;
+                    switchSection(section);
+                });
+            });
+
+            // Lesson cards
+            document.querySelectorAll('.lesson-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    currentLesson = card.dataset.lesson;
+                    currentCardIndex = 0;
+                    switchSection('vocabulary');
+                    updateCard();
+                });
+            });
+
+            // Flashcard
+            flashcard.addEventListener('click', (e) => {
+                // Don't flip if clicking on audio controls
+                if (!e.target.closest('.audio-controls') && !e.target.closest('.auto-play-toggle')) {
+                    flipCard();
+                }
+            });
+
+            // Pronounce button
+            document.getElementById('pronounceBtn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                pronounceWord();
+            });
+
+            // Speed buttons
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    speechRate = parseFloat(btn.dataset.speed);
+                });
+            });
+
+            // Auto-play toggle
+            document.getElementById('autoPlayToggle').addEventListener('click', (e) => {
+                e.stopPropagation();
+                autoPlay = !autoPlay;
+                e.currentTarget.classList.toggle('active');
+            });
+
+            // Phrase speed buttons
+            document.querySelectorAll('.phrase-speed-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.phrase-speed-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    phraseSpeed = parseFloat(btn.dataset.speed);
+                });
+            });
+
+            // Controls
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                previousCard();
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                nextCard();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (document.getElementById('vocabulary').classList.contains('active')) {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        if (e.shiftKey) {
+                            pronounceWord();
+                        } else {
+                            flipCard();
+                        }
+                    } else if (e.key === 'ArrowLeft') {
+                        previousCard();
+                    } else if (e.key === 'ArrowRight') {
+                        nextCard();
+                    } else if (e.key === 'p' || e.key === 'P') {
+                        pronounceWord();
+                    }
+                }
+            });
+        }
+
+        function switchSection(section) {
+            sections.forEach(s => s.classList.remove('active'));
+            navTabs.forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(section).classList.add('active');
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+            
+            // Show/hide phrase controls
+            const phraseControlsWrapper = document.getElementById('phraseControlsWrapper');
+            if (section === 'phrases') {
+                phraseControlsWrapper.style.display = 'block';
+            } else {
+                phraseControlsWrapper.style.display = 'none';
+            }
+        }
+
+        function updateCard() {
+            const words = vocabulary[currentLesson];
+            const word = words[currentCardIndex];
+            
+            document.getElementById('thaiWord').textContent = word.thai;
+            document.getElementById('romanization').textContent = word.romanization;
+            document.getElementById('englishWord').textContent = word.english;
+            document.getElementById('context').textContent = word.context;
+            document.getElementById('exampleThai').textContent = word.example;
+            document.getElementById('exampleEnglish').textContent = word.exampleEng;
+            
+            flashcard.classList.remove('flipped');
+            isFlipped = false;
+            
+            updateProgress();
+        }
+
+        function flipCard() {
+            flashcard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+            
+            if (isFlipped) {
+                wordsLearnedCount = Math.min(wordsLearnedCount + 1, getTotalWords());
+                wordsLearnedEl.textContent = wordsLearnedCount;
+            } else if (!isFlipped && autoPlay) {
+                // Auto-play when flipping back to front
+                setTimeout(() => pronounceWord(), 300);
+            }
+        }
+
+        function pronounceWord() {
+            if (isSpeaking) {
+                window.speechSynthesis.cancel();
+                return;
+            }
+
+            const words = vocabulary[currentLesson];
+            const word = words[currentCardIndex];
+            
+            // Use Web Speech API
+            const utterance = new SpeechSynthesisUtterance(word.thai);
+            utterance.lang = 'th-TH';
+            utterance.rate = speechRate;
+            utterance.pitch = 1;
+            
+            const pronounceBtn = document.getElementById('pronounceBtn');
+            
+            utterance.onstart = () => {
+                isSpeaking = true;
+                pronounceBtn.classList.add('playing');
+            };
+            
+            utterance.onend = () => {
+                isSpeaking = false;
+                pronounceBtn.classList.remove('playing');
+            };
+            
+            utterance.onerror = () => {
+                isSpeaking = false;
+                pronounceBtn.classList.remove('playing');
+            };
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function pronouncePhrase(text, button) {
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH';
+            utterance.rate = phraseSpeed;
+            utterance.pitch = 1;
+            
+            utterance.onstart = () => {
+                button.style.background = 'var(--thai-blue)';
+            };
+            
+            utterance.onend = () => {
+                button.style.background = 'var(--thai-gold)';
+            };
+            
+            utterance.onerror = () => {
+                button.style.background = 'var(--thai-gold)';
+            };
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function nextCard() {
+            const words = vocabulary[currentLesson];
+            currentCardIndex = (currentCardIndex + 1) % words.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            const words = vocabulary[currentLesson];
+            currentCardIndex = (currentCardIndex - 1 + words.length) % words.length;
+            updateCard();
+        }
+
+        function updateProgress() {
+            const words = vocabulary[currentLesson];
+            const progress = ((currentCardIndex + 1) / words.length) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        function getTotalWords() {
+            return Object.values(vocabulary).reduce((sum, words) => sum + words.length, 0);
+        }
+
+        function renderPhrases() {
+            phraseList.innerHTML = phrases.map((phrase, index) => `
+                <div class="phrase-item" data-index="${index}">
+                    <div class="phrase-content">
+                        <div class="phrase-thai">${phrase.thai}</div>
+                        <div class="phrase-romanization">${phrase.romanization}</div>
+                        <div class="phrase-english">${phrase.english}</div>
+                    </div>
+                    <button class="phrase-speaker-btn" data-text="${phrase.thai}" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+
+            // Add click listeners for phrases
+            document.querySelectorAll('.phrase-item').forEach(item => {
+                const content = item.querySelector('.phrase-content');
+                content.addEventListener('click', () => {
+                    phrasesLearnedCount = Math.min(phrasesLearnedCount + 1, phrases.length);
+                    phrasesLearnedEl.textContent = phrasesLearnedCount;
+                    item.style.opacity = '0.6';
+                });
+            });
+
+            // Add click listeners for speaker buttons
+            document.querySelectorAll('.phrase-speaker-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const text = btn.dataset.text;
+                    pronouncePhrase(text, btn);
+                });
+            });
+        }
+
+        // ==================== GAMES ====================
+        
+        // Matching Game State
+        let matchingGameState = {
+            category: null,
+            words: [],
+            selected: null,
+            matches: 0,
+            score: 0,
+            timer: 0,
+            timerInterval: null
+        };
+
+        // Jeopardy Game State
+        let jeopardyGameState = {
+            score: 0,
+            answeredCells: new Set(),
+            categories: []
+        };
+
+        function showMatchingGame() {
+            document.querySelector('.games-menu').style.display = 'none';
+            document.getElementById('matchingGame').style.display = 'block';
+            document.getElementById('matchSetup').style.display = 'block';
+            document.getElementById('matchingBoard').style.display = 'none';
+            document.getElementById('matchResult').style.display = 'none';
+        }
+
+        function showJeopardyGame() {
+            document.querySelector('.games-menu').style.display = 'none';
+            document.getElementById('jeopardyGame').style.display = 'block';
+            initJeopardyGame();
+        }
+
+        function backToGamesMenu() {
+            document.querySelector('.games-menu').style.display = 'block';
+            document.getElementById('matchingGame').style.display = 'none';
+            document.getElementById('jeopardyGame').style.display = 'none';
+            
+            // Clear timers
+            if (matchingGameState.timerInterval) {
+                clearInterval(matchingGameState.timerInterval);
+            }
+        }
+
+        // Matching Game Functions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    startMatchingGame(category);
+                });
+            });
+        });
+
+        function startMatchingGame(category) {
+            matchingGameState.category = category;
+            matchingGameState.selected = null;
+            matchingGameState.matches = 0;
+            matchingGameState.score = 0;
+            matchingGameState.timer = 0;
+
+            // Get words for category
+            let words;
+            if (category === 'random') {
+                const allWords = Object.values(vocabulary).flat();
+                words = shuffleArray(allWords).slice(0, 8);
+            } else {
+                words = shuffleArray(vocabulary[category]).slice(0, 8);
+            }
+            
+            matchingGameState.words = words;
+
+            // Create cards
+            const cards = [];
+            words.forEach((word, index) => {
+                cards.push({ id: `thai-${index}`, text: word.thai, type: 'thai', matchId: index, class: 'match-card-thai' });
+                cards.push({ id: `eng-${index}`, text: word.english, type: 'english', matchId: index, class: 'match-card-english' });
+            });
+
+            const shuffledCards = shuffleArray(cards);
+
+            // Render board
+            const grid = document.getElementById('matchingGrid');
+            grid.innerHTML = shuffledCards.map(card => 
+                `<div class="match-card ${card.class}" data-id="${card.id}" data-match="${card.matchId}">
+                    ${card.text}
+                </div>`
+            ).join('');
+
+            // Add click listeners
+            document.querySelectorAll('.match-card').forEach(card => {
+                card.addEventListener('click', () => handleMatchCardClick(card));
+            });
+
+            // Show board and start timer
+            document.getElementById('matchSetup').style.display = 'none';
+            document.getElementById('matchingBoard').style.display = 'block';
+
+            matchingGameState.timerInterval = setInterval(() => {
+                matchingGameState.timer++;
+                document.getElementById('matchTimer').textContent = `Time: ${matchingGameState.timer}s`;
+            }, 1000);
+
+            updateMatchScore();
+        }
+
+        function handleMatchCardClick(card) {
+            if (card.classList.contains('matched') || card.classList.contains('selected')) return;
+
+            if (!matchingGameState.selected) {
+                // First selection
+                matchingGameState.selected = card;
+                card.classList.add('selected');
+            } else {
+                // Second selection
+                const firstCard = matchingGameState.selected;
+                const secondCard = card;
+
+                const firstMatch = firstCard.dataset.match;
+                const secondMatch = secondCard.dataset.match;
+
+                if (firstMatch === secondMatch && firstCard.dataset.id !== secondCard.dataset.id) {
+                    // Match!
+                    firstCard.classList.remove('selected');
+                    firstCard.classList.add('matched');
+                    secondCard.classList.add('matched');
+                    matchingGameState.matches++;
+                    matchingGameState.score += 10;
+                    updateMatchScore();
+
+                    // Check if game complete
+                    if (matchingGameState.matches === matchingGameState.words.length) {
+                        endMatchingGame();
+                    }
+                } else {
+                    // No match
+                    secondCard.classList.add('wrong');
+                    setTimeout(() => {
+                        firstCard.classList.remove('selected');
+                        secondCard.classList.remove('wrong');
+                    }, 500);
+                }
+
+                matchingGameState.selected = null;
+            }
+        }
+
+        function updateMatchScore() {
+            document.getElementById('matchScore').textContent = `Score: ${matchingGameState.score}`;
+        }
+
+        function endMatchingGame() {
+            clearInterval(matchingGameState.timerInterval);
+            
+            document.getElementById('finalTime').textContent = `${matchingGameState.timer}s`;
+            document.getElementById('finalScore').textContent = matchingGameState.score;
+            
+            setTimeout(() => {
+                document.getElementById('matchResult').style.display = 'flex';
+            }, 500);
+        }
+
+        function resetMatchingGame() {
+            document.getElementById('matchResult').style.display = 'none';
+            document.getElementById('matchingBoard').style.display = 'none';
+            document.getElementById('matchSetup').style.display = 'block';
+        }
+
+        // Jeopardy Game Functions
+        function initJeopardyGame() {
+            jeopardyGameState.score = 0;
+            jeopardyGameState.answeredCells = new Set();
+            
+            // Create categories
+            jeopardyGameState.categories = [
+                {
+                    name: 'Greetings',
+                    questions: createJeopardyQuestions('greetings')
+                },
+                {
+                    name: 'Food',
+                    questions: createJeopardyQuestions('food')
+                },
+                {
+                    name: 'Travel',
+                    questions: createJeopardyQuestions('travel')
+                },
+                {
+                    name: 'Numbers',
+                    questions: createJeopardyQuestions('numbers')
+                }
+            ];
+
+            renderJeopardyBoard();
+            updateJeopardyScore();
+        }
+
+        function createJeopardyQuestions(category) {
+            const words = vocabulary[category];
+            const shuffled = shuffleArray([...words]);
+            
+            return [
+                { value: 100, word: shuffled[0] },
+                { value: 200, word: shuffled[1] },
+                { value: 300, word: shuffled[2] },
+                { value: 400, word: shuffled[3] }
+            ];
+        }
+
+        function renderJeopardyBoard() {
+            const board = document.getElementById('jeopardyBoard');
+            board.innerHTML = jeopardyGameState.categories.map((category, catIndex) => `
+                <div class="jeopardy-category">
+                    <div class="category-header">${category.name}</div>
+                    ${category.questions.map((q, qIndex) => `
+                        <div class="jeopardy-cell ${jeopardyGameState.answeredCells.has(`${catIndex}-${qIndex}`) ? 'answered' : ''}" 
+                             data-cat="${catIndex}" 
+                             data-q="${qIndex}"
+                             onclick="showJeopardyQuestion(${catIndex}, ${qIndex})">
+                            ${q.value}
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        function showJeopardyQuestion(catIndex, qIndex) {
+            const cellId = `${catIndex}-${qIndex}`;
+            if (jeopardyGameState.answeredCells.has(cellId)) return;
+
+            const question = jeopardyGameState.categories[catIndex].questions[qIndex];
+            const word = question.word;
+
+            // Get wrong answers
+            const allWords = Object.values(vocabulary).flat();
+            const wrongAnswers = shuffleArray(
+                allWords.filter(w => w.thai !== word.thai)
+            ).slice(0, 3);
+
+            const options = shuffleArray([
+                { text: word.english, correct: true },
+                { text: wrongAnswers[0].english, correct: false },
+                { text: wrongAnswers[1].english, correct: false },
+                { text: wrongAnswers[2].english, correct: false }
+            ]);
+
+            document.getElementById('questionValue').textContent = `${question.value} Points`;
+            document.getElementById('questionText').textContent = word.thai;
+            document.getElementById('questionOptions').innerHTML = options.map((opt, i) => `
+                <button class="option-btn" onclick="checkJeopardyAnswer(${catIndex}, ${qIndex}, ${opt.correct}, this)">
+                    ${opt.text}
+                </button>
+            `).join('');
+
+            document.getElementById('jeopardyQuestion').style.display = 'flex';
+        }
+
+        function checkJeopardyAnswer(catIndex, qIndex, correct, button) {
+            const question = jeopardyGameState.categories[catIndex].questions[qIndex];
+            const cellId = `${catIndex}-${qIndex}`;
+
+            // Disable all buttons
+            document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+
+            if (correct) {
+                button.classList.add('correct');
+                jeopardyGameState.score += question.value;
+            } else {
+                button.classList.add('incorrect');
+                // Show correct answer
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    if (btn.textContent.trim() === question.word.english) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            jeopardyGameState.answeredCells.add(cellId);
+            updateJeopardyScore();
+
+            setTimeout(() => {
+                document.getElementById('jeopardyQuestion').style.display = 'none';
+                renderJeopardyBoard();
+
+                // Check if game over
+                if (jeopardyGameState.answeredCells.size === jeopardyGameState.categories.length * 4) {
+                    endJeopardyGame();
+                }
+            }, 2000);
+        }
+
+        function updateJeopardyScore() {
+            document.getElementById('jeopardyScore').textContent = `Score: ${jeopardyGameState.score}`;
+        }
+
+        function endJeopardyGame() {
+            document.getElementById('jeopardyFinalScore').textContent = jeopardyGameState.score;
+            
+            setTimeout(() => {
+                document.getElementById('jeopardyResult').style.display = 'flex';
+            }, 500);
+        }
+
+        function resetJeopardyGame() {
+            document.getElementById('jeopardyResult').style.display = 'none';
+            initJeopardyGame();
+        }
+
+        // Utility function
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>
